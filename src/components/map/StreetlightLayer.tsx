@@ -1,7 +1,8 @@
+
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Marker, useMap, useMapEvents } from 'react-leaflet'
+import { Marker, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 
 export type PoleStatus = 'ACTIVE' | 'FAULTY' | 'UNDER_MAINTENANCE' | 'DECOMMISSIONED'
@@ -12,7 +13,7 @@ interface OsmLight {
 }
 
 interface Props {
-  onLightClick?: (pos: [number, number]) => void
+  onLightClick?: (pos: [number, number], status: PoleStatus) => void
   selectedLight?: [number, number] | null
   interactive?: boolean
 }
@@ -20,11 +21,23 @@ interface Props {
 const STATUS_ICON_FILE: Record<PoleStatus, string> = {
   ACTIVE: '/marker_icons/lamp-active.png',
   FAULTY: '/marker_icons/lamp-faulty.png',
-  UNDER_MAINTENANCE: '/marker_icons/lamp-under_maintenance.png',
+  UNDER_MAINTENANCE: '/marker_icons/lamp-under-maintenance.png',
   DECOMMISSIONED: '/marker_icons/lamp-decommissioned.png',
 }
 
 const STREETLIGHT_ICON_PX = 22
+
+const WEIGHTED_STATUSES: PoleStatus[] = [
+  ...Array(60).fill('ACTIVE'),
+  ...Array(25).fill('FAULTY'),
+  ...Array(10).fill('UNDER_MAINTENANCE'),
+  ...Array(5).fill('DECOMMISSIONED'),
+]
+
+function assignStatus(lat: number, lon: number): PoleStatus {
+  const hash = Math.abs(Math.round((lat * 1e5 + lon * 1e5) * 31)) % WEIGHTED_STATUSES.length
+  return WEIGHTED_STATUSES[hash]
+}
 
 type LightVisualState = 'default' | 'hovered' | 'selected'
 
@@ -51,10 +64,10 @@ function getStatusIcon(status: PoleStatus, state: LightVisualState): L.Icon {
 
 export default function StreetlightLayer({ onLightClick, selectedLight, interactive = true }: Props) {
   useEffect(() => {
-    const styleId = 'marker-bounce-style';
+    const styleId = 'marker-bounce-style'
     if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id = styleId;
+      const style = document.createElement('style')
+      style.id = styleId
       style.textContent = `
         @keyframes markerBounce {
           0%,  100% { transform: translateY(0px);   }
@@ -78,11 +91,11 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
           filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
           animation: markerBounce 0.45s ease;
         }
-      `;
-      document.head.appendChild(style);
+      `
+      document.head.appendChild(style)
     }
-    return () => { document.getElementById(styleId)?.remove(); };
-  }, []);
+    return () => { document.getElementById(styleId)?.remove() }
+  }, [])
 
   const [lights, setLights] = useState<OsmLight[]>([])
   const [isFetching, setIsFetching] = useState(false)
@@ -130,16 +143,20 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
       let data: any
       try { data = JSON.parse(text) } catch { throw new Error('Invalid response') }
       if (!data?.elements) throw new Error('No elements in response')
+
       const fetched: OsmLight[] = []
       for (const el of data.elements) {
         if (el.type === 'node' && typeof el.lat === 'number' && typeof el.lon === 'number') {
-          fetched.push({ position: [el.lat, el.lon], status: 'ACTIVE' })
+          fetched.push({ position: [el.lat, el.lon], status: assignStatus(el.lat, el.lon) })
         } else if (el.type === 'way' && Array.isArray(el.geometry)) {
           el.geometry.forEach((pt: any, idx: number) => {
-            if (pt && idx % 3 === 0) fetched.push({ position: [pt.lat, pt.lon], status: 'ACTIVE' })
+            if (pt && idx % 3 === 0) {
+              fetched.push({ position: [pt.lat, pt.lon], status: assignStatus(pt.lat, pt.lon) })
+            }
           })
         }
       }
+
       setLights(fetched)
       setIsFetching(false)
       setError(null)
@@ -164,7 +181,6 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
       abortRef.current?.abort()
       if (debounceRef.current) clearTimeout(debounceRef.current)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const isSelected = (pos: [number, number]) =>
@@ -203,7 +219,8 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
             position={light.position}
             icon={getStatusIcon(light.status, state)}
             eventHandlers={interactive ? {
-              click: () => onLightClick?.(light.position),
+              // [CHANGED] passes status along so LeafletMap can show it in LocationDetails
+              click: () => onLightClick?.(light.position, light.status),
               mouseover: () => setHoveredIndex(index),
               mouseout: () => setHoveredIndex(null),
             } : undefined}
