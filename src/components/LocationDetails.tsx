@@ -4,19 +4,16 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 
-// ── Contact details — change these strings for each deployment ──
 const CONTACT_EMAIL = "example@lumen.com";
 const CONTACT_NUMBER = "09XXXXXXXXX";
 const CONTACT_ADDRESS = "#67 Mundo ni Majinbu Street, Brgy. Lumen Hall";
 
-// ── Fault / status types (mirrors FaultType enum in the codebase) ──
 const ISSUE_TYPES = [
   { value: "NO_POWER", label: "Light completely out" },
   { value: "FLICKERING", label: "Flickering / Unstable light" },
   { value: "DAMAGED_FIXTURE", label: "Broken pole / Structural damage" },
 ];
 
-// ── Pole status → badge colour (same mapping used in poles/[id]/page.tsx) ──
 const STATUS_BADGE: Record<string, { bg: string; text: string; dot: string }> = {
   ACTIVE: { bg: "bg-green-50", text: "text-green-700", dot: "bg-green-500" },
   FAULTY: { bg: "bg-red-50", text: "text-red-600", dot: "bg-red-500" },
@@ -24,15 +21,12 @@ const STATUS_BADGE: Record<string, { bg: string; text: string; dot: string }> = 
   DECOMMISSIONED: { bg: "bg-gray-100", text: "text-brand-cornflower-blue", dot: "bg-gray-400" },
 };
 
-// ── Streetlight SVG icon — status-aware colour fill ──
-// Colours mirror the status system already used across the dashboard.
 function StreetlightIcon({ status }: { status: string }) {
-  // Pick the fill colour based on pole status
   const fill =
-    status === "ACTIVE" ? "#16a34a" :   // green-600
-      status === "FAULTY" ? "#ef4444" :   // red-500
-        status === "UNDER_MAINTENANCE" ? "#d97706" :   // amber-600
-          "#9ca3af";    // gray-400 (decommissioned / unknown)
+    status === "ACTIVE" ? "#16a34a" :
+      status === "FAULTY" ? "#ef4444" :
+        status === "UNDER_MAINTENANCE" ? "#d97706" :
+          "#9ca3af";
 
   return (
     <svg
@@ -64,16 +58,13 @@ type Tab = "overview" | "complaints" | "about";
 // ── Props ──
 export interface LocationDetailsProps {
   isOpen: boolean;
-  // Basic identity
-  title?: string;   // street name or pole code
+  title?: string;
   address?: string;
-  // Pole metadata 
   status?: string;
   poleCode?: string;
   latitude?: number;
   longitude?: number;
   barangay?: string;
-  // Node / hardware specs
   nodeSpecs?: Record<string, string>;
 }
 
@@ -124,10 +115,8 @@ export default function LocationDetails({
   const removeFile = (idx: number) =>
     setMediaFiles((prev) => prev.filter((_, i) => i !== idx));
 
-  // ── Complaint submit (stub — wire to createFaultReport server action) ──
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: call createFaultReport({ poleId, reportedById, description, faultType: issueType })
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -275,7 +264,6 @@ export default function LocationDetails({
         {activeTab === "complaints" && (
           <div className="p-5">
 
-            {/* Success state — shown briefly after submit */}
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-12 gap-3 text-center">
                 <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
@@ -289,16 +277,12 @@ export default function LocationDetails({
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-
-                {/* Section heading */}
                 <div>
                   <h3 className="text-sm font-bold text-brand-blue">Report an Issue</h3>
                   <p className="text-xs text-gray-950 mt-0.5">
                     Help our team respond faster by describing the problem.
                   </p>
                 </div>
-
-                {/* Issue classification dropdown */}
                 <div>
                   <label className="block text-xs font-bold text-brand-blue mb-1.5 uppercase tracking-wider">
                     Issue Classification <span className="text-red-500">*</span>
@@ -320,8 +304,6 @@ export default function LocationDetails({
                     ))}
                   </select>
                 </div>
-
-                {/* Description textarea */}
                 <div>
                   <label className="block text-xs font-bold text-brand-blue mb-1.5 uppercase tracking-wider">
                     Description
@@ -339,14 +321,10 @@ export default function LocationDetails({
                     ].join(" ")}
                   />
                 </div>
-
-                {/* Media upload — drag-and-drop zone */}
                 <div>
                   <label className="block text-xs font-bold text-brand-blue mb-1.5 uppercase tracking-wider">
                     Upload Media
                   </label>
-
-                  {/* Drop zone */}
                   <div
                     onClick={() => fileInputRef.current?.click()}
                     onDrop={handleDrop}
@@ -361,7 +339,6 @@ export default function LocationDetails({
                         : "border-gray-200 bg-gray-50 hover:border-[#1E3A8A]/50 hover:bg-gray-100",
                     ].join(" ")}
                   >
-                    {/* Upload icon */}
                     <svg className="w-7 h-7 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round"
                         d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
@@ -371,8 +348,6 @@ export default function LocationDetails({
                     </p>
                     <p className="text-[10px] text-gray-300">JPG, PNG, MP4 accepted</p>
                   </div>
-
-                  {/* Hidden file input */}
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -381,8 +356,6 @@ export default function LocationDetails({
                     className="hidden"
                     onChange={handleFileInput}
                   />
-
-                  {/* Preview list of selected files */}
                   {mediaFiles.length > 0 && (
                     <ul className="mt-2 space-y-1">
                       {mediaFiles.map((f, i) => (
@@ -403,8 +376,6 @@ export default function LocationDetails({
                     </ul>
                   )}
                 </div>
-
-                {/* Submit button — brand blue */}
                 <button
                   type="submit"
                   className={[
@@ -514,7 +485,7 @@ export default function LocationDetails({
           </div>
         )}
 
-      </div>{/* end scrollable content */}
+      </div>
     </div>
   );
 }
