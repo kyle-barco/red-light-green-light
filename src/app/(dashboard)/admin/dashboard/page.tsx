@@ -6,6 +6,7 @@ import AdminStatsRow from './_components/AdminStatRow'
 import UserTable from './_components/UserTable'
 import RecentWorkOrders from './_components/RecentWorkOrders'
 import TechnicianOverview from './_components/TechnicianOverview'
+import AnnouncementsFeed from './_components/AnnouncementsFeed'
 
 async function getAdminData() {
   const [
@@ -92,6 +93,8 @@ export default async function AdminDashboard() {
         pendingWorkOrders={data.pendingWorkOrders}
         openFaults={data.openFaults}
       />
+
+      <AnnouncementsFeed />
 
       {/* Two-column grid: Technician overview + Recent Work Orders */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

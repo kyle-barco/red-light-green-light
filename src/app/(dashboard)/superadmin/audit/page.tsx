@@ -13,7 +13,7 @@ export default async function SuperAdminAudit() {
   })
 
   return (
-    <div className="p-4 sm:p-8 max-w-6xl space-y-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Audit Log</h1>
         <p className="text-sm text-gray-500 mt-1">Track all administrative actions performed across the system.</p>

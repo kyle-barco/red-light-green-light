@@ -20,12 +20,12 @@ export default function DashboardControls({ userRole }: DashboardControlsProps) 
         try {
           const { latitude, longitude } = position.coords
           const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            `/api/geocode?lat=${latitude}&lon=${longitude}`
           )
           const data = await res.json()
           
           // Fallback sequence to get local city/municipality name
-          const city = data.address.city || data.address.town || data.address.village || "Quezon City"
+          const city = data.address?.city || data.address?.town || data.address?.village || "Quezon City"
           setLocation(city)
         } catch (err) {
           console.error("Geolocation parsing failed:", err)

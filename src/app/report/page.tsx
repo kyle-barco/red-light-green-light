@@ -6,6 +6,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { MapPin, AlertTriangle, Camera, Send, Loader2, CheckCircle, ArrowLeft, Navigation } from "lucide-react";
 import { createAnonymousFaultReport, createUserFaultReport } from "@/actions/community";
+import { uploadFiles } from "@/lib/supabase";
+import ImageUpload from "@/components/ImageUpload";
 
 const LeafletMap = dynamic(() => import("./MapSelector"), { ssr: false });
 
@@ -79,6 +81,18 @@ function ReportPageInner() {
     setError("");
 
     try {
+      let imageUrls: string[] = [];
+
+      if (mediaFiles.length > 0) {
+        try {
+          imageUrls = await uploadFiles(mediaFiles, "files", "fault-reports");
+        } catch (err) {
+          setError("Failed to upload images. Please try again.");
+          setSubmitting(false);
+          return;
+        }
+      }
+
       if (isAnonymous || !sessionUser) {
         await createAnonymousFaultReport({
           poleId: selectedPole.id,
@@ -89,6 +103,7 @@ function ReportPageInner() {
           reporterPhone: reporterPhone.trim() || undefined,
           latitude: gpsLocation?.[0],
           longitude: gpsLocation?.[1],
+          imageUrls,
         });
       } else {
         await createUserFaultReport({
@@ -97,6 +112,7 @@ function ReportPageInner() {
           faultType: faultType as any,
           latitude: gpsLocation?.[0],
           longitude: gpsLocation?.[1],
+          imageUrls,
         });
       }
       setSubmitted(true);
@@ -200,25 +216,7 @@ function ReportPageInner() {
             <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-1.5">
               Photo Evidence
             </label>
-            <div
-              onClick={() => fileInputRef.current?.click()}
-              className="w-full rounded-xl border-2 border-dashed border-gray-200 dark:border-slate-600 flex flex-col items-center justify-center py-4 gap-1 cursor-pointer hover:border-brand-blue/50 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
-            >
-              <Camera className="w-5 h-5 text-gray-400" />
-              <p className="text-xs text-gray-400 font-medium">
-                {mediaFiles.length > 0 ? `${mediaFiles.length} file(s) selected` : "Tap to add photos"}
-              </p>
-            </div>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files) setMediaFiles(Array.from(e.target.files));
-              }}
-            />
+            <ImageUpload files={mediaFiles} onChange={setMediaFiles} maxFiles={5} />
           </div>
         </div>
 

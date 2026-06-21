@@ -12,8 +12,8 @@ export default async function PolesPage() {
   const poles = await getPoles()
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
+      <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold text-gray-900">Poles</h1>
         <Link
           href="/poles/new"

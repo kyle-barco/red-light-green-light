@@ -6,7 +6,7 @@ const ENDPOINTS = [
 ]
 
 const cache = new Map<string, { data: string; expiry: number }>()
-const CACHE_TTL = 120_000
+const CACHE_TTL = 1_800_000
 
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams.get('data')
@@ -19,7 +19,10 @@ export async function GET(req: NextRequest) {
   if (cached && Date.now() < cached.expiry) {
     return new NextResponse(cached.data, {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Cache': 'HIT',
+      },
     })
   }
 
@@ -28,7 +31,7 @@ export async function GET(req: NextRequest) {
       const url = `${endpoint}?data=${encodeURIComponent(query)}`
       const res = await fetch(url, {
         headers: { 'User-Agent': 'ilLUMENate/1.0 (municipal lighting map)' },
-        signal: AbortSignal.timeout(20000),
+        signal: AbortSignal.timeout(15000),
       })
       if (res.status === 429) continue
       if (!res.ok) continue
@@ -36,7 +39,10 @@ export async function GET(req: NextRequest) {
       cache.set(cacheKey, { data: text, expiry: Date.now() + CACHE_TTL })
       return new NextResponse(text, {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Cache': 'MISS',
+        },
       })
     } catch {
       continue

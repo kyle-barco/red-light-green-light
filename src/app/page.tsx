@@ -37,6 +37,7 @@ import type { SearchHistory } from "@/lib/generated/prisma";
 import UserFloatingDashboard from './(dashboard)/user/dashboard/_components/UserFloatingDashboard'
 import TechnicianFloatingDashboard from './(dashboard)/technician/dashboard/_components/TechnicianFloatingDashboard'
 import SuperAdminFloatingDashboard from './(dashboard)/superadmin/dashboard/_components/SuperAdminFloatingDashboard'
+import type { PoleStatus } from '@/components/map/StreetlightLayer'
 
 const Map = dynamic(() => import("@/components/map/LeafletMap"), {
   ssr: false,
@@ -160,6 +161,7 @@ export default function Page() {
 
   // States for panels
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<PoleStatus | null>(null);
   const [isRecentOpen, setIsRecentOpen] = useState(false);
 
   // --- NEW GPS STATE FOR SIDEBAR ---
@@ -226,6 +228,8 @@ export default function Page() {
 
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [recentActivities, setRecentActivities] = useState<Activity[]>([]);
+
+  const skipNextSearch = useRef(false);
 
   const roleMenuConfig: Record<string, { title: string; icon: React.ComponentType<{ className?: string }>; key: string; route?: string }[]> = {
     superadmin: [
@@ -328,10 +332,10 @@ export default function Page() {
           const { latitude, longitude } = position.coords;
           // Reverse lookup with OSM Nominatim API
           const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            `/api/geocode?lat=${latitude}&lon=${longitude}`
           );
           const data = await res.json();
-          const locationName = data.address.city || data.address.town || data.address.village || data.address.municipality || "Quezon City";
+          const locationName = data.address?.city || data.address?.town || data.address?.village || data.address?.municipality || "Quezon City";
           setGpsLocation(locationName);
         } catch (err) {
           console.error("Reverse geocoding processing error:", err);
@@ -404,6 +408,11 @@ export default function Page() {
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
+    if (skipNextSearch.current) {
+      skipNextSearch.current = false;
+      return;
+    }
+
     const query = searchInput.trim();
     if (query.length < 3) {
       setSuggestions([]);
@@ -419,7 +428,7 @@ export default function Page() {
       setIsSearching(true);
       try {
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&addressdetails=0&limit=5&q=${encodeURIComponent(query + ", Philippines")}`,
+          `/api/geocode?q=${encodeURIComponent(query + ", Philippines")}`,
           { signal: controller.signal },
         );
         const data: SearchResult[] = await response.json();
@@ -473,6 +482,7 @@ export default function Page() {
     const lon = parseFloat(result.lon);
     setSearchedLocation([lat, lon]);
     const mainTitle = result.display_name.split(",")[0];
+    skipNextSearch.current = true;
     setSearchInput(mainTitle);
     setShowSuggestions(false);
 
@@ -715,7 +725,7 @@ export default function Page() {
 
       {/* 2. MAIN MAP PAGE SPACE */}
       <main className="flex-1 relative flex flex-col">
-        <Map targetLocation={searchedLocation} onMarkerClick={() => setShowSuggestions(false)}/>
+        <Map targetLocation={searchedLocation} onMarkerClick={() => setShowSuggestions(false)} filter={activeFilter} />
 
         {/* TOP SYSTEM LOGO NAVIGATION BAR */}
         <header className="absolute top-0 left-0 w-full h-auto bg-brand-blue/90 backdrop-blur-[0.5px] z-30 flex justify-between items-center px-2 sm:px-8 border-b border-[#2f4383]/50 pointer-events-auto">
@@ -826,19 +836,19 @@ export default function Page() {
 
               {isFilterOpen && (
                 <div className="absolute top-[110%] left-0 sm:left-auto sm:right-0 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 py-2 z-50">
-                  <button onClick={() => setIsFilterOpen(false)} className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700">
+                  <button onClick={() => { setActiveFilter(null); setIsFilterOpen(false) }} className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700">
                     <X className="w-4 h-4" />
                     <span className="text-sm">Clear Filter</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700">
+                  <button onClick={() => { setActiveFilter('ACTIVE'); setIsFilterOpen(false) }} className={`w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 ${activeFilter === 'ACTIVE' ? 'bg-slate-100 dark:bg-slate-700' : ''}`}>
                     <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     <span className="text-sm">Operational / Healthy</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200">
+                  <button onClick={() => { setActiveFilter('FAULTY'); setIsFilterOpen(false) }} className={`w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 ${activeFilter === 'FAULTY' ? 'bg-slate-100 dark:bg-slate-700' : ''}`}>
                     <div className="w-2 h-2 rounded-full bg-red-500"></div>
                     <span className="text-sm">Lamp Failure Fault</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200">
+                  <button onClick={() => { setActiveFilter('UNDER_MAINTENANCE'); setIsFilterOpen(false) }} className={`w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 ${activeFilter === 'UNDER_MAINTENANCE' ? 'bg-slate-100 dark:bg-slate-700' : ''}`}>
                     <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                     <span className="text-sm">Structural Pole Damage</span>
                   </button>

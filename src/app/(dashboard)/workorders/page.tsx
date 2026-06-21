@@ -15,8 +15,8 @@ export default async function WorkOrdersPage() {
   const orders = await getWorkOrders()
 
   return (
-    <div className="p-6">
-      <h1 className="text-lg font-semibold text-gray-900 mb-6">Work orders</h1>
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
+      <h1 className="text-lg font-semibold text-gray-900">Work orders</h1>
 
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden overflow-x-auto">
         <table className="w-full text-sm min-w-[650px]">

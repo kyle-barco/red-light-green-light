@@ -7,6 +7,7 @@ import MyReportsTable from './_components/MyReportsTable'
 import MyRecentActivity from './_components/MyRecentActivity'
 import TechnicianApplyCard from './_components/TechnicianApplyCard'
 import UserCharts from './_components/UserCharts'
+import AnnouncementsFeed from './_components/AnnouncementsFeed'
 import { Hand } from 'lucide-react'
 
 async function getUserData(userId: string) {
@@ -42,7 +43,7 @@ export default async function UserDashboardPage() {
   const firstName = session.user.name?.split(' ')[0] ?? 'there'
 
   return (
-    <div className="p-4 sm:p-8 space-y-8 max-w-[1200px]">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900 inline-flex items-center gap-2">Hi, {firstName} <Hand className="w-6 h-6" /></h1>
@@ -53,6 +54,8 @@ export default async function UserDashboardPage() {
 
       {/* Technician Application */}
       <TechnicianApplyCard />
+
+      <AnnouncementsFeed />
 
       {/* Stats Row */}
       <UserStatsRow

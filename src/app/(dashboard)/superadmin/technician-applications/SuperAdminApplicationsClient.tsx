@@ -40,7 +40,7 @@ export default function SuperAdminApplicationsClient({ applications }: { applica
   });
 
   return (
-    <div className="p-6 space-y-6 max-w-[1400px]">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div>
         <h1 className="text-lg font-semibold text-gray-900">Technician Applications</h1>
         <p className="text-sm text-gray-500 mt-0.5">

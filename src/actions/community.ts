@@ -34,6 +34,7 @@ export async function createAnonymousFaultReport(data: {
   reporterPhone?: string
   latitude?: number
   longitude?: number
+  imageUrls?: string[]
 }) {
   const pole = await prisma.pole.findUnique({ where: { id: data.poleId } });
   if (!pole) throw new Error("Pole not found");
@@ -48,6 +49,7 @@ export async function createAnonymousFaultReport(data: {
       reporterPhone: data.reporterPhone,
       latitude: data.latitude ?? pole.latitude,
       longitude: data.longitude ?? pole.longitude,
+      imageUrls: data.imageUrls ?? [],
       status: ReportStatus.OPEN,
     },
   });
@@ -87,6 +89,7 @@ export async function createUserFaultReport(data: {
   faultType: FaultType
   latitude?: number
   longitude?: number
+  imageUrls?: string[]
 }) {
   const session = await getSession();
   if (!session?.user?.id) throw new Error("Unauthorized");
@@ -102,6 +105,7 @@ export async function createUserFaultReport(data: {
       faultType: data.faultType,
       latitude: data.latitude ?? pole.latitude,
       longitude: data.longitude ?? pole.longitude,
+      imageUrls: data.imageUrls ?? [],
     },
   });
 

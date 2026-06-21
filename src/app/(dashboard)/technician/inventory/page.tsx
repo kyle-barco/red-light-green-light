@@ -12,7 +12,7 @@ export default async function InventoryPage() {
   const items = await getInventory()
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div>
         <h1 className="text-lg font-semibold text-gray-900">Inventory</h1>
         <p className="text-sm text-gray-500 mt-0.5 mb-6">Track spare parts, bulbs, and equipment stock.</p>

@@ -20,6 +20,7 @@ model User {
   barangay                 String
   city                     String
   dob                      DateTime?
+  avatarUrl                String?
   firstName                String
   gender                   String?
   lastName                 String
@@ -64,6 +65,7 @@ model FaultReport {
   reporterPhone String?
   description   String
   faultType     FaultType
+  imageUrls     String[]
   status        ReportStatus @default(OPEN)
   latitude      Float?
   longitude     Float?
@@ -96,6 +98,7 @@ model MaintenanceLog {
   partsUsed    String?
   timeSpent    Int?
   notes        String?
+  imageUrls    String[]
   createdAt    DateTime  @default(now())
   workOrder    WorkOrder @relation(fields: [workOrderId], references: [id])
   technician   User      @relation(fields: [technicianId], references: [id])

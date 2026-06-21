@@ -12,18 +12,15 @@ export default function LocationDisplay() {
       async (position) => {
         try {
           const { latitude, longitude } = position.coords
-          // Querying public reverse-geocoding endpoint to translate lat/long to city name
           const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            `/api/geocode?lat=${latitude}&lon=${longitude}`
           )
           const data = await res.json()
-          
-          // Fallback sequence targeting city, town, or village names
           const city =
-            data.address.city ||
-            data.address.town ||
-            data.address.village ||
-            data.address.municipality ||
+            data.address?.city ||
+            data.address?.town ||
+            data.address?.village ||
+            data.address?.municipality ||
             "Quezon City"
           setLocation(city)
         } catch (err) {

@@ -27,7 +27,7 @@ export default async function ReportsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <h1 className="text-lg font-semibold text-gray-900">Reports</h1>
 
       {/* Poles by barangay */}

@@ -22,7 +22,7 @@ export default async function AdminPolesPage() {
   ])
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Pole Data Management</h1>

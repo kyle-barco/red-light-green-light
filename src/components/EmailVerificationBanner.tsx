@@ -18,7 +18,7 @@ export default function EmailVerificationBanner() {
 
   return (
     <div className="bg-amber-50 border-b border-amber-200 px-4 sm:px-6 py-3">
-      <div className="max-w-[1200px] mx-auto flex items-center justify-between gap-4">
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <Mail className="w-5 h-5 text-amber-600 shrink-0" />
           <p className="text-sm text-amber-800">

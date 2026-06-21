@@ -48,9 +48,10 @@ function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | nu
 interface LeafletMapProps {
   targetLocation?: [number, number] | null;
   onMarkerClick?: () => void;
+  filter?: PoleStatus | null;
 }
 
-export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMapProps) {
+export default function LeafletMap({ targetLocation, onMarkerClick, filter }: LeafletMapProps) {
   const defaultCenter: [number, number] = [14.6507, 120.9842];
 
   const mapKey = targetLocation ? `${targetLocation[0]}-${targetLocation[1]}` : 'default-map';
@@ -84,7 +85,7 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
     onMarkerClick?.();
     const [pole, geoRes] = await Promise.all([
       getPoleFaultsByCoord(pos[0], pos[1]),
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos[0]}&lon=${pos[1]}`).catch(() => null),
+      fetch(`/api/geocode?lat=${pos[0]}&lon=${pos[1]}`).catch(() => null),
     ])
     let resolvedAddress = "Unknown location"
     let resolvedBarangay = ""
@@ -161,8 +162,9 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
         <MapUpdater targetLocation={activeLight ?? targetLocation} />
 
         <StreetlightLayer
-          onLightClick={handleLightClick} // [CHANGED] handler now accepts (pos, status)
+          onLightClick={handleLightClick}
           selectedLight={selectedLight}
+          filter={filter ?? null}
         />
         <Marker
           position={markerPosition}

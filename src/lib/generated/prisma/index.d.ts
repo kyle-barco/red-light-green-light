@@ -2386,6 +2386,7 @@ export namespace Prisma {
     barangay: string | null
     city: string | null
     dob: Date | null
+    avatarUrl: string | null
     firstName: string | null
     gender: string | null
     lastName: string | null
@@ -2409,6 +2410,7 @@ export namespace Prisma {
     barangay: string | null
     city: string | null
     dob: Date | null
+    avatarUrl: string | null
     firstName: string | null
     gender: string | null
     lastName: string | null
@@ -2432,6 +2434,7 @@ export namespace Prisma {
     barangay: number
     city: number
     dob: number
+    avatarUrl: number
     firstName: number
     gender: number
     lastName: number
@@ -2457,6 +2460,7 @@ export namespace Prisma {
     barangay?: true
     city?: true
     dob?: true
+    avatarUrl?: true
     firstName?: true
     gender?: true
     lastName?: true
@@ -2480,6 +2484,7 @@ export namespace Prisma {
     barangay?: true
     city?: true
     dob?: true
+    avatarUrl?: true
     firstName?: true
     gender?: true
     lastName?: true
@@ -2503,6 +2508,7 @@ export namespace Prisma {
     barangay?: true
     city?: true
     dob?: true
+    avatarUrl?: true
     firstName?: true
     gender?: true
     lastName?: true
@@ -2599,6 +2605,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob: Date | null
+    avatarUrl: string | null
     firstName: string
     gender: string | null
     lastName: string
@@ -2639,6 +2646,7 @@ export namespace Prisma {
     barangay?: boolean
     city?: boolean
     dob?: boolean
+    avatarUrl?: boolean
     firstName?: boolean
     gender?: boolean
     lastName?: boolean
@@ -2674,6 +2682,7 @@ export namespace Prisma {
     barangay?: boolean
     city?: boolean
     dob?: boolean
+    avatarUrl?: boolean
     firstName?: boolean
     gender?: boolean
     lastName?: boolean
@@ -2697,6 +2706,7 @@ export namespace Prisma {
     barangay?: boolean
     city?: boolean
     dob?: boolean
+    avatarUrl?: boolean
     firstName?: boolean
     gender?: boolean
     lastName?: boolean
@@ -2720,6 +2730,7 @@ export namespace Prisma {
     barangay?: boolean
     city?: boolean
     dob?: boolean
+    avatarUrl?: boolean
     firstName?: boolean
     gender?: boolean
     lastName?: boolean
@@ -2730,7 +2741,7 @@ export namespace Prisma {
     streetAddress?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "isActive" | "createdAt" | "emailVerified" | "verificationToken" | "verificationTokenExpires" | "barangay" | "city" | "dob" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "isActive" | "createdAt" | "emailVerified" | "verificationToken" | "verificationTokenExpires" | "barangay" | "city" | "dob" | "avatarUrl" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faultReports?: boolean | User$faultReportsArgs<ExtArgs>
     inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
@@ -2776,6 +2787,7 @@ export namespace Prisma {
       barangay: string
       city: string
       dob: Date | null
+      avatarUrl: string | null
       firstName: string
       gender: string | null
       lastName: string
@@ -3230,6 +3242,7 @@ export namespace Prisma {
     readonly barangay: FieldRef<"User", 'String'>
     readonly city: FieldRef<"User", 'String'>
     readonly dob: FieldRef<"User", 'DateTime'>
+    readonly avatarUrl: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
@@ -5169,6 +5182,7 @@ export namespace Prisma {
     reporterPhone: number
     description: number
     faultType: number
+    imageUrls: number
     status: number
     latitude: number
     longitude: number
@@ -5229,6 +5243,7 @@ export namespace Prisma {
     reporterPhone?: true
     description?: true
     faultType?: true
+    imageUrls?: true
     status?: true
     latitude?: true
     longitude?: true
@@ -5332,6 +5347,7 @@ export namespace Prisma {
     reporterPhone: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls: string[]
     status: $Enums.ReportStatus
     latitude: number | null
     longitude: number | null
@@ -5367,6 +5383,7 @@ export namespace Prisma {
     reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
+    imageUrls?: boolean
     status?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5386,6 +5403,7 @@ export namespace Prisma {
     reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
+    imageUrls?: boolean
     status?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5404,6 +5422,7 @@ export namespace Prisma {
     reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
+    imageUrls?: boolean
     status?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5422,6 +5441,7 @@ export namespace Prisma {
     reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
+    imageUrls?: boolean
     status?: boolean
     latitude?: boolean
     longitude?: boolean
@@ -5429,7 +5449,7 @@ export namespace Prisma {
     adminNotes?: boolean
   }
 
-  export type FaultReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "reportedById" | "reporterName" | "reporterEmail" | "reporterPhone" | "description" | "faultType" | "status" | "latitude" | "longitude" | "reportedAt" | "adminNotes", ExtArgs["result"]["faultReport"]>
+  export type FaultReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "reportedById" | "reporterName" | "reporterEmail" | "reporterPhone" | "description" | "faultType" | "imageUrls" | "status" | "latitude" | "longitude" | "reportedAt" | "adminNotes", ExtArgs["result"]["faultReport"]>
   export type FaultReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pole?: boolean | PoleDefaultArgs<ExtArgs>
     reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
@@ -5460,6 +5480,7 @@ export namespace Prisma {
       reporterPhone: string | null
       description: string
       faultType: $Enums.FaultType
+      imageUrls: string[]
       status: $Enums.ReportStatus
       latitude: number | null
       longitude: number | null
@@ -5899,6 +5920,7 @@ export namespace Prisma {
     readonly reporterPhone: FieldRef<"FaultReport", 'String'>
     readonly description: FieldRef<"FaultReport", 'String'>
     readonly faultType: FieldRef<"FaultReport", 'FaultType'>
+    readonly imageUrls: FieldRef<"FaultReport", 'String[]'>
     readonly status: FieldRef<"FaultReport", 'ReportStatus'>
     readonly latitude: FieldRef<"FaultReport", 'Float'>
     readonly longitude: FieldRef<"FaultReport", 'Float'>
@@ -7575,6 +7597,7 @@ export namespace Prisma {
     partsUsed: number
     timeSpent: number
     notes: number
+    imageUrls: number
     createdAt: number
     _all: number
   }
@@ -7615,6 +7638,7 @@ export namespace Prisma {
     partsUsed?: true
     timeSpent?: true
     notes?: true
+    imageUrls?: true
     createdAt?: true
     _all?: true
   }
@@ -7712,6 +7736,7 @@ export namespace Prisma {
     partsUsed: string | null
     timeSpent: number | null
     notes: string | null
+    imageUrls: string[]
     createdAt: Date
     _count: MaintenanceLogCountAggregateOutputType | null
     _avg: MaintenanceLogAvgAggregateOutputType | null
@@ -7741,6 +7766,7 @@ export namespace Prisma {
     partsUsed?: boolean
     timeSpent?: boolean
     notes?: boolean
+    imageUrls?: boolean
     createdAt?: boolean
     workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
     technician?: boolean | UserDefaultArgs<ExtArgs>
@@ -7753,6 +7779,7 @@ export namespace Prisma {
     partsUsed?: boolean
     timeSpent?: boolean
     notes?: boolean
+    imageUrls?: boolean
     createdAt?: boolean
     workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
     technician?: boolean | UserDefaultArgs<ExtArgs>
@@ -7765,6 +7792,7 @@ export namespace Prisma {
     partsUsed?: boolean
     timeSpent?: boolean
     notes?: boolean
+    imageUrls?: boolean
     createdAt?: boolean
     workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
     technician?: boolean | UserDefaultArgs<ExtArgs>
@@ -7777,10 +7805,11 @@ export namespace Prisma {
     partsUsed?: boolean
     timeSpent?: boolean
     notes?: boolean
+    imageUrls?: boolean
     createdAt?: boolean
   }
 
-  export type MaintenanceLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workOrderId" | "technicianId" | "partsUsed" | "timeSpent" | "notes" | "createdAt", ExtArgs["result"]["maintenanceLog"]>
+  export type MaintenanceLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workOrderId" | "technicianId" | "partsUsed" | "timeSpent" | "notes" | "imageUrls" | "createdAt", ExtArgs["result"]["maintenanceLog"]>
   export type MaintenanceLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
     technician?: boolean | UserDefaultArgs<ExtArgs>
@@ -7807,6 +7836,7 @@ export namespace Prisma {
       partsUsed: string | null
       timeSpent: number | null
       notes: string | null
+      imageUrls: string[]
       createdAt: Date
     }, ExtArgs["result"]["maintenanceLog"]>
     composites: {}
@@ -8239,6 +8269,7 @@ export namespace Prisma {
     readonly partsUsed: FieldRef<"MaintenanceLog", 'String'>
     readonly timeSpent: FieldRef<"MaintenanceLog", 'Int'>
     readonly notes: FieldRef<"MaintenanceLog", 'String'>
+    readonly imageUrls: FieldRef<"MaintenanceLog", 'String[]'>
     readonly createdAt: FieldRef<"MaintenanceLog", 'DateTime'>
   }
     
@@ -18542,6 +18573,7 @@ export namespace Prisma {
     barangay: 'barangay',
     city: 'city',
     dob: 'dob',
+    avatarUrl: 'avatarUrl',
     firstName: 'firstName',
     gender: 'gender',
     lastName: 'lastName',
@@ -18579,6 +18611,7 @@ export namespace Prisma {
     reporterPhone: 'reporterPhone',
     description: 'description',
     faultType: 'faultType',
+    imageUrls: 'imageUrls',
     status: 'status',
     latitude: 'latitude',
     longitude: 'longitude',
@@ -18610,6 +18643,7 @@ export namespace Prisma {
     partsUsed: 'partsUsed',
     timeSpent: 'timeSpent',
     notes: 'notes',
+    imageUrls: 'imageUrls',
     createdAt: 'createdAt'
   };
 
@@ -18932,6 +18966,7 @@ export namespace Prisma {
     barangay?: StringFilter<"User"> | string
     city?: StringFilter<"User"> | string
     dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    avatarUrl?: StringNullableFilter<"User"> | string | null
     firstName?: StringFilter<"User"> | string
     gender?: StringNullableFilter<"User"> | string | null
     lastName?: StringFilter<"User"> | string
@@ -18966,6 +19001,7 @@ export namespace Prisma {
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrderInput | SortOrder
+    avatarUrl?: SortOrderInput | SortOrder
     firstName?: SortOrder
     gender?: SortOrderInput | SortOrder
     lastName?: SortOrder
@@ -19003,6 +19039,7 @@ export namespace Prisma {
     barangay?: StringFilter<"User"> | string
     city?: StringFilter<"User"> | string
     dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    avatarUrl?: StringNullableFilter<"User"> | string | null
     firstName?: StringFilter<"User"> | string
     gender?: StringNullableFilter<"User"> | string | null
     lastName?: StringFilter<"User"> | string
@@ -19037,6 +19074,7 @@ export namespace Prisma {
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrderInput | SortOrder
+    avatarUrl?: SortOrderInput | SortOrder
     firstName?: SortOrder
     gender?: SortOrderInput | SortOrder
     lastName?: SortOrder
@@ -19066,6 +19104,7 @@ export namespace Prisma {
     barangay?: StringWithAggregatesFilter<"User"> | string
     city?: StringWithAggregatesFilter<"User"> | string
     dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     firstName?: StringWithAggregatesFilter<"User"> | string
     gender?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastName?: StringWithAggregatesFilter<"User"> | string
@@ -19168,6 +19207,7 @@ export namespace Prisma {
     reporterPhone?: StringNullableFilter<"FaultReport"> | string | null
     description?: StringFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeFilter<"FaultReport"> | $Enums.FaultType
+    imageUrls?: StringNullableListFilter<"FaultReport">
     status?: EnumReportStatusFilter<"FaultReport"> | $Enums.ReportStatus
     latitude?: FloatNullableFilter<"FaultReport"> | number | null
     longitude?: FloatNullableFilter<"FaultReport"> | number | null
@@ -19187,6 +19227,7 @@ export namespace Prisma {
     reporterPhone?: SortOrderInput | SortOrder
     description?: SortOrder
     faultType?: SortOrder
+    imageUrls?: SortOrder
     status?: SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
@@ -19209,6 +19250,7 @@ export namespace Prisma {
     reporterPhone?: StringNullableFilter<"FaultReport"> | string | null
     description?: StringFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeFilter<"FaultReport"> | $Enums.FaultType
+    imageUrls?: StringNullableListFilter<"FaultReport">
     status?: EnumReportStatusFilter<"FaultReport"> | $Enums.ReportStatus
     latitude?: FloatNullableFilter<"FaultReport"> | number | null
     longitude?: FloatNullableFilter<"FaultReport"> | number | null
@@ -19228,6 +19270,7 @@ export namespace Prisma {
     reporterPhone?: SortOrderInput | SortOrder
     description?: SortOrder
     faultType?: SortOrder
+    imageUrls?: SortOrder
     status?: SortOrder
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
@@ -19252,6 +19295,7 @@ export namespace Prisma {
     reporterPhone?: StringNullableWithAggregatesFilter<"FaultReport"> | string | null
     description?: StringWithAggregatesFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeWithAggregatesFilter<"FaultReport"> | $Enums.FaultType
+    imageUrls?: StringNullableListFilter<"FaultReport">
     status?: EnumReportStatusWithAggregatesFilter<"FaultReport"> | $Enums.ReportStatus
     latitude?: FloatNullableWithAggregatesFilter<"FaultReport"> | number | null
     longitude?: FloatNullableWithAggregatesFilter<"FaultReport"> | number | null
@@ -19348,6 +19392,7 @@ export namespace Prisma {
     partsUsed?: StringNullableFilter<"MaintenanceLog"> | string | null
     timeSpent?: IntNullableFilter<"MaintenanceLog"> | number | null
     notes?: StringNullableFilter<"MaintenanceLog"> | string | null
+    imageUrls?: StringNullableListFilter<"MaintenanceLog">
     createdAt?: DateTimeFilter<"MaintenanceLog"> | Date | string
     workOrder?: XOR<WorkOrderScalarRelationFilter, WorkOrderWhereInput>
     technician?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -19360,6 +19405,7 @@ export namespace Prisma {
     partsUsed?: SortOrderInput | SortOrder
     timeSpent?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    imageUrls?: SortOrder
     createdAt?: SortOrder
     workOrder?: WorkOrderOrderByWithRelationInput
     technician?: UserOrderByWithRelationInput
@@ -19375,6 +19421,7 @@ export namespace Prisma {
     partsUsed?: StringNullableFilter<"MaintenanceLog"> | string | null
     timeSpent?: IntNullableFilter<"MaintenanceLog"> | number | null
     notes?: StringNullableFilter<"MaintenanceLog"> | string | null
+    imageUrls?: StringNullableListFilter<"MaintenanceLog">
     createdAt?: DateTimeFilter<"MaintenanceLog"> | Date | string
     workOrder?: XOR<WorkOrderScalarRelationFilter, WorkOrderWhereInput>
     technician?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -19387,6 +19434,7 @@ export namespace Prisma {
     partsUsed?: SortOrderInput | SortOrder
     timeSpent?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    imageUrls?: SortOrder
     createdAt?: SortOrder
     _count?: MaintenanceLogCountOrderByAggregateInput
     _avg?: MaintenanceLogAvgOrderByAggregateInput
@@ -19405,6 +19453,7 @@ export namespace Prisma {
     partsUsed?: StringNullableWithAggregatesFilter<"MaintenanceLog"> | string | null
     timeSpent?: IntNullableWithAggregatesFilter<"MaintenanceLog"> | number | null
     notes?: StringNullableWithAggregatesFilter<"MaintenanceLog"> | string | null
+    imageUrls?: StringNullableListFilter<"MaintenanceLog">
     createdAt?: DateTimeWithAggregatesFilter<"MaintenanceLog"> | Date | string
   }
 
@@ -20035,6 +20084,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -20069,6 +20119,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -20103,6 +20154,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -20137,6 +20189,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -20171,6 +20224,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -20194,6 +20248,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -20217,6 +20272,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -20326,6 +20382,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -20345,6 +20402,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -20360,6 +20418,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -20379,6 +20438,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -20396,6 +20456,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -20410,6 +20471,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -20426,6 +20488,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -20516,6 +20579,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
     workOrder: WorkOrderCreateNestedOneWithoutMaintenanceLogsInput
     technician: UserCreateNestedOneWithoutMaintenanceLogsInput
@@ -20528,6 +20592,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
   }
 
@@ -20536,6 +20601,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workOrder?: WorkOrderUpdateOneRequiredWithoutMaintenanceLogsNestedInput
     technician?: UserUpdateOneRequiredWithoutMaintenanceLogsNestedInput
@@ -20548,6 +20614,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20558,6 +20625,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
   }
 
@@ -20566,6 +20634,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20576,6 +20645,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21394,6 +21464,7 @@ export namespace Prisma {
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrder
+    avatarUrl?: SortOrder
     firstName?: SortOrder
     gender?: SortOrder
     lastName?: SortOrder
@@ -21417,6 +21488,7 @@ export namespace Prisma {
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrder
+    avatarUrl?: SortOrder
     firstName?: SortOrder
     gender?: SortOrder
     lastName?: SortOrder
@@ -21440,6 +21512,7 @@ export namespace Prisma {
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrder
+    avatarUrl?: SortOrder
     firstName?: SortOrder
     gender?: SortOrder
     lastName?: SortOrder
@@ -21629,6 +21702,14 @@ export namespace Prisma {
     not?: NestedEnumFaultTypeFilter<$PrismaModel> | $Enums.FaultType
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type EnumReportStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.ReportStatus | EnumReportStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ReportStatus[] | ListEnumReportStatusFieldRefInput<$PrismaModel>
@@ -21671,6 +21752,7 @@ export namespace Prisma {
     reporterPhone?: SortOrder
     description?: SortOrder
     faultType?: SortOrder
+    imageUrls?: SortOrder
     status?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
@@ -21839,6 +21921,7 @@ export namespace Prisma {
     partsUsed?: SortOrder
     timeSpent?: SortOrder
     notes?: SortOrder
+    imageUrls?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -22827,6 +22910,10 @@ export namespace Prisma {
     deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
   }
 
+  export type FaultReportCreateimageUrlsInput = {
+    set: string[]
+  }
+
   export type PoleCreateNestedOneWithoutFaultReportsInput = {
     create?: XOR<PoleCreateWithoutFaultReportsInput, PoleUncheckedCreateWithoutFaultReportsInput>
     connectOrCreate?: PoleCreateOrConnectWithoutFaultReportsInput
@@ -22853,6 +22940,11 @@ export namespace Prisma {
 
   export type EnumFaultTypeFieldUpdateOperationsInput = {
     set?: $Enums.FaultType
+  }
+
+  export type FaultReportUpdateimageUrlsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type EnumReportStatusFieldUpdateOperationsInput = {
@@ -22995,6 +23087,10 @@ export namespace Prisma {
     deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
   }
 
+  export type MaintenanceLogCreateimageUrlsInput = {
+    set: string[]
+  }
+
   export type WorkOrderCreateNestedOneWithoutMaintenanceLogsInput = {
     create?: XOR<WorkOrderCreateWithoutMaintenanceLogsInput, WorkOrderUncheckedCreateWithoutMaintenanceLogsInput>
     connectOrCreate?: WorkOrderCreateOrConnectWithoutMaintenanceLogsInput
@@ -23013,6 +23109,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type MaintenanceLogUpdateimageUrlsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type WorkOrderUpdateOneRequiredWithoutMaintenanceLogsNestedInput = {
@@ -23557,6 +23658,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -23574,6 +23676,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -23771,6 +23874,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
     workOrder: WorkOrderCreateNestedOneWithoutMaintenanceLogsInput
   }
@@ -23781,6 +23885,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
   }
 
@@ -23936,6 +24041,7 @@ export namespace Prisma {
     reporterPhone?: StringNullableFilter<"FaultReport"> | string | null
     description?: StringFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeFilter<"FaultReport"> | $Enums.FaultType
+    imageUrls?: StringNullableListFilter<"FaultReport">
     status?: EnumReportStatusFilter<"FaultReport"> | $Enums.ReportStatus
     latitude?: FloatNullableFilter<"FaultReport"> | number | null
     longitude?: FloatNullableFilter<"FaultReport"> | number | null
@@ -24130,6 +24236,7 @@ export namespace Prisma {
     partsUsed?: StringNullableFilter<"MaintenanceLog"> | string | null
     timeSpent?: IntNullableFilter<"MaintenanceLog"> | number | null
     notes?: StringNullableFilter<"MaintenanceLog"> | string | null
+    imageUrls?: StringNullableListFilter<"MaintenanceLog">
     createdAt?: DateTimeFilter<"MaintenanceLog"> | Date | string
   }
 
@@ -24206,6 +24313,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -24223,6 +24331,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -24345,6 +24454,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -24378,6 +24488,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -24491,6 +24602,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -24524,6 +24636,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -24590,6 +24703,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -24623,6 +24737,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -24661,6 +24776,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -24694,6 +24810,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -24726,6 +24843,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -24744,6 +24862,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -24761,6 +24880,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
     technician: UserCreateNestedOneWithoutMaintenanceLogsInput
   }
@@ -24771,6 +24891,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
   }
 
@@ -24808,6 +24929,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -24841,6 +24963,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -24885,6 +25008,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -24918,6 +25042,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -24956,6 +25081,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -24974,6 +25100,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -25037,6 +25164,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25070,6 +25198,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25152,6 +25281,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25185,6 +25315,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25218,6 +25349,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25251,6 +25383,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25331,6 +25464,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25364,6 +25498,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25434,6 +25569,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25467,6 +25603,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25516,6 +25653,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25549,6 +25687,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25582,6 +25721,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25615,6 +25755,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25664,6 +25805,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25697,6 +25839,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25801,6 +25944,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25834,6 +25978,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -25918,6 +26063,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25951,6 +26097,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -25984,6 +26131,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -26017,6 +26165,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -26055,6 +26204,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -26088,6 +26238,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -26126,6 +26277,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -26159,6 +26311,7 @@ export namespace Prisma {
     barangay: string
     city: string
     dob?: Date | string | null
+    avatarUrl?: string | null
     firstName: string
     gender?: string | null
     lastName: string
@@ -26208,6 +26361,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -26241,6 +26395,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -26285,6 +26440,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -26318,6 +26474,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -26362,6 +26519,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -26395,6 +26553,7 @@ export namespace Prisma {
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: StringFieldUpdateOperationsInput | string
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: StringFieldUpdateOperationsInput | string
@@ -26423,6 +26582,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -26491,6 +26651,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
   }
 
@@ -26543,6 +26704,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26560,6 +26722,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26576,6 +26739,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26757,6 +26921,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workOrder?: WorkOrderUpdateOneRequiredWithoutMaintenanceLogsNestedInput
   }
@@ -26767,6 +26932,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -26776,6 +26942,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -26913,6 +27080,7 @@ export namespace Prisma {
     reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
+    imageUrls?: FaultReportCreateimageUrlsInput | string[]
     status?: $Enums.ReportStatus
     latitude?: number | null
     longitude?: number | null
@@ -26936,6 +27104,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26953,6 +27122,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -26969,6 +27139,7 @@ export namespace Prisma {
     reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
+    imageUrls?: FaultReportUpdateimageUrlsInput | string[]
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -27009,6 +27180,7 @@ export namespace Prisma {
     partsUsed?: string | null
     timeSpent?: number | null
     notes?: string | null
+    imageUrls?: MaintenanceLogCreateimageUrlsInput | string[]
     createdAt?: Date | string
   }
 
@@ -27017,6 +27189,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     technician?: UserUpdateOneRequiredWithoutMaintenanceLogsNestedInput
   }
@@ -27027,6 +27200,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27036,6 +27210,7 @@ export namespace Prisma {
     partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
     timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: MaintenanceLogUpdateimageUrlsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

@@ -16,6 +16,7 @@ interface Props {
   onLightClick?: (pos: [number, number], status: PoleStatus) => void
   selectedLight?: [number, number] | null
   interactive?: boolean
+  filter?: PoleStatus | null
 }
 
 const STATUS_ICON_FILE: Record<PoleStatus, string> = {
@@ -62,7 +63,7 @@ function getStatusIcon(status: PoleStatus, state: LightVisualState): L.Icon {
   return icon
 }
 
-export default function StreetlightLayer({ onLightClick, selectedLight, interactive = true }: Props) {
+export default function StreetlightLayer({ onLightClick, selectedLight, interactive = true, filter }: Props) {
   useEffect(() => {
     const styleId = 'marker-bounce-style'
     if (!document.getElementById(styleId)) {
@@ -173,14 +174,14 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
   const map = useMapEvents({
     moveend: () => {
       if (debounceRef.current) clearTimeout(debounceRef.current)
-      debounceRef.current = setTimeout(() => fetchLights(map), 800)
+      abortRef.current?.abort()
+      debounceRef.current = setTimeout(() => fetchLights(map), 400)
     },
   })
 
   useEffect(() => {
-    const timer = setTimeout(() => fetchLights(map), 500)
+    fetchLights(map)
     return () => {
-      clearTimeout(timer)
       abortRef.current?.abort()
       if (debounceRef.current) clearTimeout(debounceRef.current)
     }
@@ -190,6 +191,10 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
     !!selectedLight &&
     selectedLight[0] === pos[0] &&
     selectedLight[1] === pos[1]
+
+  const filteredLights = filter
+    ? lights.filter(light => light.status === filter)
+    : lights
 
   return (
     <>
@@ -203,13 +208,19 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
           {error}
         </div>
       )}
-      {!isFetching && !error && lights.length === 0 && (
-        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-500 border border-slate-200">
-          No tagged streetlights here
+      {!isFetching && !error && filteredLights.length === 0 && (
+        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-amber-500 border border-slate-200">
+          No {filter ? filter.replace(/_/g, ' ').toLowerCase() : ''} streetlights found
         </div>
       )}
 
-      {lights.map((light, index) => {
+      {filter && lights.length > 0 && (
+        <div className="absolute top-36 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
+          Showing {filteredLights.length}/{lights.length} lights
+        </div>
+      )}
+
+      {filteredLights.map((light, index) => {
         const state: LightVisualState = isSelected(light.position)
           ? 'selected'
           : hoveredIndex === index

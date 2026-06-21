@@ -85,7 +85,7 @@ export default function AdminFaultsPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div>
         <h1 className="text-lg font-semibold text-gray-900">Fault Report Inbox</h1>
         <p className="text-sm text-gray-500 mt-0.5">Triage, assign, and manage incoming fault reports.</p>

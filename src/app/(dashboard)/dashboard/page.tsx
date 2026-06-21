@@ -89,7 +89,7 @@ export default async function DashboardPage() {
       prisma.pole.findMany({ select: { id: true, poleCode: true, address: true, latitude: true, longitude: true, status: true } }),
     ])
     return (
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
         <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
         <StatGrid cards={statCards(stats)} />
         <div className="bg-white rounded-xl border border-gray-100 p-4">
@@ -106,7 +106,7 @@ export default async function DashboardPage() {
   if (role === 'TECHNICIAN') {
     const stats = await getTechnicianStats(userId)
     return (
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
         <h1 className="text-lg font-semibold text-gray-900">My Work</h1>
         <StatGrid
           cards={[

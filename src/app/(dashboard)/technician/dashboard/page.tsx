@@ -5,6 +5,7 @@ import { Role, WorkOrderStatus } from '@/lib/generated/prisma/client'
 import TechnicianStatsRow from './_components/TechnicianStatsRow'
 import MyWorkOrders from './_components/MyWorkOrders'
 import ActiveFaults from './_components/ActiveFaults'
+import AnnouncementsFeed from './_components/AnnouncementsFeed'
 
 async function getTechnicianDashboardData(userId: string) {
   const [assigned, inProgress, resolvedThisWeek, workOrders, activeFaults] = await Promise.all([
@@ -76,6 +77,8 @@ export default async function TechnicianDashboardPage() {
         resolvedThisWeek={data.resolvedThisWeek}
         latestPole={data.latestPole}
       />
+
+      <AnnouncementsFeed />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <MyWorkOrders workOrders={data.workOrders} />

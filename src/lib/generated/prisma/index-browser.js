@@ -133,6 +133,7 @@ exports.Prisma.UserScalarFieldEnum = {
   barangay: 'barangay',
   city: 'city',
   dob: 'dob',
+  avatarUrl: 'avatarUrl',
   firstName: 'firstName',
   gender: 'gender',
   lastName: 'lastName',
@@ -164,6 +165,7 @@ exports.Prisma.FaultReportScalarFieldEnum = {
   reporterPhone: 'reporterPhone',
   description: 'description',
   faultType: 'faultType',
+  imageUrls: 'imageUrls',
   status: 'status',
   latitude: 'latitude',
   longitude: 'longitude',
@@ -189,6 +191,7 @@ exports.Prisma.MaintenanceLogScalarFieldEnum = {
   partsUsed: 'partsUsed',
   timeSpent: 'timeSpent',
   notes: 'notes',
+  imageUrls: 'imageUrls',
   createdAt: 'createdAt'
 };
 

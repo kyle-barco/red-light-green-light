@@ -7,6 +7,7 @@ import RoleManagement from './_components/RoleManagement'
 import SystemOverview from './_components/SystemOverview'
 import UserTable from './_components/UserTable'
 import AnalyticsCharts from './_components/AnalyticsCharts'
+import AnnouncementsFeed from './_components/AnnouncementsFeed'
 
 async function getSuperAdminData() {
   const now = new Date()
@@ -152,6 +153,8 @@ export default async function SuperAdminDashboard() {
         openFaults={data.openFaults}
         totalPoles={data.totalPoles}
       />
+
+      <AnnouncementsFeed />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <SystemOverview

@@ -38,8 +38,8 @@ export default function AdminAnnouncementsPage() {
   }
 
   return (
-    <div className="p-6 max-w-2xl">
-      <div className="mb-6">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
+      <div>
         <h1 className="text-lg font-semibold text-gray-900">Broadcast Announcement</h1>
         <p className="text-sm text-gray-500 mt-0.5">Send a system notification to all users, technicians, or everyone.</p>
       </div>
