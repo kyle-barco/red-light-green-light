@@ -1,19 +1,31 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+let _supabase: ReturnType<typeof createClient> | null = null;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+function getSupabase() {
+  if (!_supabase) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    if (!url || !key) {
+      throw new Error(
+        "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY env vars",
+      );
+    }
+    _supabase = createClient(url, key);
+  }
+  return _supabase;
+}
 
 export async function uploadFile(
   file: File,
   bucket: string,
   folder: string = "uploads",
 ): Promise<string> {
+  const sb = getSupabase();
   const ext = file.name.split(".").pop() ?? "jpg";
   const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
-  const { error } = await supabase.storage
+  const { error } = await sb.storage
     .from(bucket)
     .upload(fileName, file, {
       cacheControl: "3600",
@@ -31,7 +43,7 @@ export async function uploadFile(
     throw new Error(error.message);
   }
 
-  const { data: publicUrl } = supabase.storage
+  const { data: publicUrl } = sb.storage
     .from(bucket)
     .getPublicUrl(fileName);
 

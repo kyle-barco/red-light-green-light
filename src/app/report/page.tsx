@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { MapPin, AlertTriangle, Camera, Send, Loader2, CheckCircle, ArrowLeft, Navigation } from "lucide-react";
 import { createAnonymousFaultReport, createUserFaultReport } from "@/actions/community";
-import { uploadFiles } from "@/lib/supabase";
 import ImageUpload from "@/components/ImageUpload";
 
 const LeafletMap = dynamic(() => import("./MapSelector"), { ssr: false });
@@ -85,6 +84,7 @@ function ReportPageInner() {
 
       if (mediaFiles.length > 0) {
         try {
+          const { uploadFiles } = await import("@/lib/supabase");
           imageUrls = await uploadFiles(mediaFiles, "files", "fault-reports");
         } catch (err) {
           setError("Failed to upload images. Please try again.");
