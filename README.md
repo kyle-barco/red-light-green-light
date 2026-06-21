@@ -51,6 +51,11 @@ npm run db:seed
 npm run dev
 ```
 
+### 5. Run this to download xlsx for csv as xlsx or pdf
+
+```bash
+npm install xlsx
+```
 Open [http://localhost:3000](http://localhost:3000).
 
 ## Demo credentials
