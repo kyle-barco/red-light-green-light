@@ -1,5 +1,3 @@
-'use server'
-
 import prisma from '@/lib/prisma'
 import { getSession } from '@/lib/auth'
 import { Role, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma/client'
