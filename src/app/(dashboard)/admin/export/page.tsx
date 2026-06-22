@@ -2,22 +2,31 @@
 
 import { useState } from "react"
 import { exportFaultReportsCsv } from "@/actions/admin"
-import { Download, Loader2, Calendar, MapPin, Filter } from "lucide-react"
+import { Download, Loader2, Calendar, MapPin, Filter, FileText } from "lucide-react"
+import { csvBranding, downloadPdf } from "@/lib/export-template"
 
 export default function AdminExportPage() {
   const [from, setFrom] = useState("")
   const [to, setTo] = useState("")
   const [barangay, setBarangay] = useState("")
   const [status, setStatus] = useState("")
-  const [exporting, setExporting] = useState(false)
+  const [exporting, setExporting] = useState<string | null>(null)
   const [count, setCount] = useState<number | null>(null)
 
-  const handleExport = async (e: React.FormEvent) => {
+  const getFilters = () => ({
+    from,
+    to,
+    barangay,
+    status: status || undefined,
+  })
+
+  const handleExportCsv = async (e: React.FormEvent) => {
     e.preventDefault()
-    setExporting(true)
+    setExporting("csv")
     try {
-      const csv = await exportFaultReportsCsv({ from, to, barangay, status: status || undefined })
-      const blob = new Blob([csv], { type: "text/csv" })
+      const csv = await exportFaultReportsCsv(getFilters())
+      const branded = csvBranding("Fault Reports Export") + csv
+      const blob = new Blob([branded], { type: "text/csv" })
       const url = URL.createObjectURL(blob)
       const a = document.createElement("a")
       a.href = url
@@ -28,7 +37,29 @@ export default function AdminExportPage() {
     } catch (err) {
       console.error(err)
     } finally {
-      setExporting(false)
+      setExporting(null)
+    }
+  }
+
+  const handleExportPdf = async () => {
+    setExporting("pdf")
+    try {
+      const csv = await exportFaultReportsCsv(getFilters())
+      const lines = csv.trim().split("\n")
+      const headers = lines[0].split(",")
+      const rows = lines.slice(1).map((l) => l.split(","))
+
+      await downloadPdf(
+        "Fault Reports Export",
+        headers,
+        rows,
+        `fault-reports-${new Date().toISOString().slice(0, 10)}.pdf`,
+      )
+      setCount(rows.length)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setExporting(null)
     }
   }
 
@@ -36,7 +67,7 @@ export default function AdminExportPage() {
     <div className="p-6 max-w-2xl">
       <div className="mb-6">
         <h1 className="text-lg font-semibold text-gray-900">Export Reports</h1>
-        <p className="text-sm text-gray-500 mt-0.5">Download fault reports as CSV with optional filters.</p>
+        <p className="text-sm text-gray-500 mt-0.5">Download fault reports as CSV or PDF with optional filters.</p>
       </div>
 
       {count !== null && (
@@ -45,7 +76,7 @@ export default function AdminExportPage() {
         </div>
       )}
 
-      <form onSubmit={handleExport} className="bg-white rounded-xl border border-gray-100 p-6 space-y-5">
+      <form onSubmit={handleExportCsv} className="bg-white rounded-xl border border-gray-100 p-6 space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
@@ -106,17 +137,31 @@ export default function AdminExportPage() {
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={exporting}
-          className="w-full py-2.5 rounded-xl text-sm font-bold text-white bg-brand-blue hover:bg-brand-royal-blue disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 cursor-pointer"
-        >
-          {exporting ? (
-            <><Loader2 className="w-4 h-4 animate-spin" /> Exporting...</>
-          ) : (
-            <><Download className="w-4 h-4" /> Download CSV</>
-          )}
-        </button>
+        <div className="flex gap-3">
+          <button
+            type="submit"
+            disabled={exporting === "csv"}
+            className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-brand-blue hover:bg-brand-royal-blue disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {exporting === "csv" ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /> Exporting CSV...</>
+            ) : (
+              <><Download className="w-4 h-4" /> Download CSV</>
+            )}
+          </button>
+          <button
+            type="button"
+            onClick={handleExportPdf}
+            disabled={exporting === "pdf"}
+            className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {exporting === "pdf" ? (
+              <><Loader2 className="w-4 h-4 animate-spin" /> Exporting PDF...</>
+            ) : (
+              <><FileText className="w-4 h-4" /> Download PDF</>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   )
